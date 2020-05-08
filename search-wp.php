@@ -21,7 +21,7 @@
 	}
 
 	add_action('searchwp_index_post', function($post) {
-		if ( 'application/epub+zip' === $this->post->post_mime_type ) {
+		if ( 'application/epub+zip' === $post->post_mime_type ) {
 			$document_content = get_post_meta( $post->ID, SEARCHWP_PREFIX . 'content', true );
 			
 			if ( empty( $document_content ) ) {
@@ -33,8 +33,8 @@
 				$document_content = $client->getText($filename);
 			
 				$document_content = sanitize_text_field( $document_content );
-				delete_post_meta( $this->post->ID, SEARCHWP_PREFIX . 'content' );
-				update_post_meta( $this->post->ID, SEARCHWP_PREFIX . 'content', $document_content );
+				delete_post_meta( $post->ID, SEARCHWP_PREFIX . 'content' );
+				update_post_meta( $post->ID, SEARCHWP_PREFIX . 'content', $document_content );
 			}
 		}
 	});
