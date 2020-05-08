@@ -1,4 +1,5 @@
-#SearchWP EPUB
+# SearchWP EPUB
+
 Super simple plugin that enables indexing of EPUB publications with the **SearchWP plugin** ([https://searchwp.com/]()).
 
 It is based on **Apache Tika** ([https://tika.apache.org/]()), so it is necessary that the hosting is enabled to run Java code.
