@@ -1,0 +1,56 @@
+dist: trusty
+language: php
+php:
+- 5.4
+- 5.5
+- 5.6
+- 7.0
+- 7.1
+- 7.2
+- 7.3
+- 7.4
+sudo: false
+addons:
+  apt:
+    packages:
+    - oracle-java9-set-default
+    - tesseract-ocr
+cache:
+  directories:
+  - "$HOME/tika"
+env:
+  - APACHE_TIKA_VERSION=1.7
+  - APACHE_TIKA_VERSION=1.8
+  - APACHE_TIKA_VERSION=1.9
+  - APACHE_TIKA_VERSION=1.10
+  - APACHE_TIKA_VERSION=1.11
+  - APACHE_TIKA_VERSION=1.12
+  - APACHE_TIKA_VERSION=1.13
+  - APACHE_TIKA_VERSION=1.14
+  - APACHE_TIKA_VERSION=1.15
+  - APACHE_TIKA_VERSION=1.16
+  - APACHE_TIKA_VERSION=1.17
+  - APACHE_TIKA_VERSION=1.18
+  - APACHE_TIKA_VERSION=1.19
+  - APACHE_TIKA_VERSION=1.19.1
+  - APACHE_TIKA_VERSION=1.20
+  - APACHE_TIKA_VERSION=1.21
+  - APACHE_TIKA_VERSION=1.22
+  - APACHE_TIKA_VERSION=1.23
+  - APACHE_TIKA_VERSION=1.24
+  - APACHE_TIKA_VERSION=1.24.1
+before_install:
+- pip install --user codecov
+install:
+- composer install
+before_script:
+- ./scripts/download.sh
+- ./scripts/spawn.sh
+after_script:
+- cat /tmp/tika-server-*.log
+after_success:
+- codecov
+notifications:
+  email: 
+    recipients:
+      - contacto@davidmartinez.net
