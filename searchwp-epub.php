@@ -8,7 +8,7 @@ EPUB indexer for SearchWP
 Plugin Name: SearchWP EPUB
 Plugin URI:  https://github.com/gregoriopellegrino/searchwp-epub
 Description: WordPress plugin that enables indexing of EPUBs in SearchWP
-Version:     0.2
+Version:     0.3
 Author:      Gregorio Pellegrino
 Author URI:  https://effata.it
 Text Domain: search-wp
