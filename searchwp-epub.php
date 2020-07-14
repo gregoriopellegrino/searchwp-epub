@@ -54,7 +54,7 @@ add_filter( 'searchwp\entry\data', function( $data, \SearchWP\Entry $entry ) {
 	$data['meta']['searchwp_epub_metadata'] = $metadata;
 
 	return $data;
-} );
+}, 10, 2 );
 
 add_action('searchwp_index_post', function($post) {
 	if ( 'application/epub+zip' === $post->post_mime_type ) {
