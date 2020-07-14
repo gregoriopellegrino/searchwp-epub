@@ -21,14 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_filter( 'searchwp\entry\data', function( $data, \SearchWP\Entry $entry ) {
-	if ( 'post' !== substr( 0, 4, $entry->get_source()->get_name() ) ) {
-		return $entry;
+  
+	if ( 'post.attachment' !== $entry->get_source()->get_name() ) {
+		return $data;
 	}
 
-	$post = get_post( $entry->get_id() );
+	$post = get_post($entry->get_id());
 
 	if ( 'application/epub+zip' !== $post->post_mime_type ) {
-		return $entry;
+		return $data;
 	}
 
 	if ( ! metadata_exists( 'post', $post->ID, SEARCHWP_PREFIX . 'content' ) ) {
@@ -42,15 +43,16 @@ add_filter( 'searchwp\entry\data', function( $data, \SearchWP\Entry $entry ) {
 		update_post_meta( $post->ID, SEARCHWP_PREFIX . 'content', $document_content );
 	}
 
-	if ( empty( $document_content ) ) {
+	if ( !isset( $document_content ) ) {
 		$document_content = get_post_meta( $post->ID, SEARCHWP_PREFIX . 'content', true );
 	}
 
 	$metadata = (array) $client->getMetadata( $filename )->meta;
 
-	unset( $metadata['X-Parsed-By'] );
+	if(array_key_exists('X-Parsed-By', $metadata)) unset( $metadata['X-Parsed-By'] );
 
-	$data['document_content' ]                = $document_content;
+	$data['document_content' ]              = $document_content;
+  if(!array_key_exists('meta', $data)) $data['meta'] = array();
 	$data['meta']['searchwp_epub_metadata'] = $metadata;
 
 	return $data;
